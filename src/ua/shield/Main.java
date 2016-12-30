@@ -2,6 +2,7 @@ package ua.shield;
 
 import jdk.internal.util.xml.impl.Input;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,6 +15,13 @@ public class Main {
 
     public static void main(String[] args) {
 
+        List<Class<?>> classList=PackageScanner.getAnnotationClassesForPackage("ua.shield","ChapterDef");
+        classList.forEach(c->{
+            System.out.println(c.getSimpleName());
+            PackageScanner.getAnnotationMethodForClass(c,"TaskDef").forEach(m->{
+                System.out.println("\t"+m.getName());
+            });
+        });
     }
 
     public static void createMenu(String [] arr){
