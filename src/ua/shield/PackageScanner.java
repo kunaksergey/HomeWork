@@ -1,7 +1,10 @@
 package ua.shield;
 
+import ua.shield.annotation.DefAnnotation;
+
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.lang.annotation.AnnotationTypeMismatchException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
@@ -50,6 +53,17 @@ public class PackageScanner {
         return methods;
     }
 
+    public static String getDescForClass(Class<?>aClass) throws AnnotationIsNotSupport{
+        DefAnnotation defAnnotation = aClass.getDeclaredAnnotation(DefAnnotation.class);
+
+        if(defAnnotation!=null){
+            return defAnnotation.desc();
+        }else{
+            throw new AnnotationIsNotSupport("Аннотация не поддерживается");
+        }
+
+    }
+
     private static boolean checkClassForAnnotation(Class<?> aClass, String annotationName) {
         Annotation[] declaredAnnotations = aClass.getDeclaredAnnotations();
         for (Annotation a : declaredAnnotations) {
@@ -69,4 +83,6 @@ public class PackageScanner {
         }
         return false;
     }
+
+
 }

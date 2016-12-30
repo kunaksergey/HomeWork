@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class ProxyAnnotationClass {
     Object aClass;
     String classDesc;
-    HashMap<String,String> methodMap=new HashMap<>();
+    HashMap<String,Method> methodMap=new HashMap<>();
 
     public Object getaClass() {
         return aClass;
@@ -33,4 +33,6 @@ public class ProxyAnnotationClass {
     public HashMap<String, String> getMethodMap() {
         return methodMap;
     }
+
+
 }

@@ -11,10 +11,13 @@ import java.util.Scanner;
  * Created by sa on 29.12.16.
  */
 public class Main {
-    final private static String packageName="ua.shield";
+    final private static String packageName="ua.shield.task";
 
     public static void main(String[] args) {
-       new Context(packageName).run();
+        Context context=new Context(packageName);
+        for (ProxyAnnotationClass proxy:context.getClassList()) {
+            System.out.println(proxy.getClassDesc());
+        }
     }
 
     public static void createMenu(String [] arr){
