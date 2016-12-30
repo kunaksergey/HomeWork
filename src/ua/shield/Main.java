@@ -11,17 +11,10 @@ import java.util.Scanner;
  * Created by sa on 29.12.16.
  */
 public class Main {
-    final String packageName="ua.shield";
+    final private static String packageName="ua.shield";
 
     public static void main(String[] args) {
-
-        List<Class<?>> classList=PackageScanner.getAnnotationClassesForPackage("ua.shield","ChapterDef");
-        classList.forEach(c->{
-            System.out.println(c.getSimpleName());
-            PackageScanner.getAnnotationMethodForClass(c,"TaskDef").forEach(m->{
-                System.out.println("\t"+m.getName());
-            });
-        });
+       new Context(packageName).run();
     }
 
     public static void createMenu(String [] arr){
