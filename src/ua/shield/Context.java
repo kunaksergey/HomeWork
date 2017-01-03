@@ -39,7 +39,9 @@ public class Context {
         }
     }
 
-
+    /**
+     * Запускаем процесс
+     */
     public void run() {
         try {
             showMenu(getListClass(sceletonList), "0-Выход");
