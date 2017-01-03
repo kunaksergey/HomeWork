@@ -13,7 +13,7 @@ public class ArifmeticOperation {
 
     @DefAnnotation(desc = "Спросить у пользователя сумму покупки и узнать его скидку." +
             "Выдать результат- \"К оплате с учетом скидки\"")
-    public void firstTask(){
+    public void taskOne(){
         double summ,result;
         int discount;
         System.out.println("Введите сумму:");
@@ -26,7 +26,7 @@ public class ArifmeticOperation {
     }
 
     @DefAnnotation(desc = "Ввести три числа и найти наибольшее из них")
-    public void secondTask() {
+    public void taskTwo() {
         System.out.println("Введите 3 целых числа разделенные пробелом");
         String[] strArr = scanner.nextLine().split(" ", 3);
         int max=Integer.parseInt(strArr[0]);
@@ -40,7 +40,7 @@ public class ArifmeticOperation {
 
 
     @DefAnnotation(desc = "Ввести пять чисел и найти среднее арифметиеское")
-    public void thirdTask(){
+    public void TaskThree(){
     double result;
         System.out.println("Введите 5 целых числа разделенные пробелом");
         String[] strArr = scanner.nextLine().split(" ", 5);

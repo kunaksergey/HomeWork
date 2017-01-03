@@ -58,7 +58,7 @@ public class ChooseOperation {
         if(monthIndex>=1 && monthIndex<=12){
             System.out.println(monthArr[monthIndex-1]);
         }else{
-            System.out.println("Месяцас таким номером не существует");
+            System.out.println("Месяца с таким номером не существует");
         }
     }
 }

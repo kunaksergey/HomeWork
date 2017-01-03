@@ -64,33 +64,28 @@ public class CycleOperation {
     @DefAnnotation(desc = "Одна штука некоторого товара стоит 20,4 руб. Напечатать таблицу\n" +
             "стоимости 2, 3, ..., 20 штук этого товара.")
     public void taskFour() {
-        float costValue = 20.4f;
-        System.out.printf("Одна штука некоторого товара стоит %.2f%n руб.", costValue);
-        for (int i = 2; i <= 20; i++) {
-
-            System.out.printf("стоимость " + i + " штук(и): %.2f%n руб.", i * costValue);
-        }
+        float ratio = 20.4f;
+        String strFormat= " штук(и) товара: %.2f руб.%n";
+        printTableRation(ratio,20,strFormat);
     }
 
     @DefAnnotation(desc = "Напечатать таблицу соответствия между весом в фунтах и весом в\n" +
             "килограммах для значений 1, 2, ..., 10 фунтов (1 фунт = 453 г).")
     public void taskFive() {
         float ratio = 0.453f;
-        System.out.println("1 фунт = 0.453 кг.");
-        for (int i = 1; i <= 10; i++) {
-            System.out.printf(i + " фунт(а) =%.3fкг.%n", i * ratio);
-        }
+        String strFormat= " фунт(ов)= %.3f кг.%n";
+
+        printTableRation(ratio,10,strFormat);
     }
 
     @DefAnnotation(desc = "Напечатать таблицу перевода 1, 2, ... 20 долларов США в рубли по текущему\n" +
             "курсу (значение курса вводится с клавиатуры).")
     public void taskSix() {
         StringBuffer stringBuffer = new StringBuffer();
+        String strFormat=" $=%.2f руб.\n";
         System.out.println("Введите курс рубля к $ ");
-        float cutentCourse = scanner.nextFloat();
-        for (int i = 1; i <= 20; i++) {
-            System.out.printf(i + "$=%.2f руб.\n", i * cutentCourse);
-        }
+        float ratio = scanner.nextFloat();
+        printTableRation(ratio,20,strFormat);
     }
 
     @DefAnnotation(desc = "Напечатать таблицу умножения на 7:")
@@ -110,7 +105,6 @@ public class CycleOperation {
         for (int i = 1; i <= 20; i++) {
             System.out.printf("Стоимость %dг. конфет: %.2f%n", i * 100, cost / 10 * i);
         }
-
     }
 
     @DefAnnotation(desc = "Найти сумму всех целых чисел от –10 до b (значение b вводится с\n" +
@@ -153,7 +147,6 @@ public class CycleOperation {
     public void taskThirteen() {
         int result = 0;
         int[] gradArr = new int[10];
-
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             gradArr[i] = random.nextInt(gradArr.length) + 1;
@@ -344,10 +337,33 @@ public class CycleOperation {
             "делителей, включая 1 и, естественно, исключая это самое число. Например,\n" +
             "совершенным является число 6 ( 6 1 2 3). Найти все совершенные\n" +
             "числа, меньшие 100 000.")
-    public void taskTwentySix1() {
-
+    public void taskTwentySix() {
+        StringBuffer stringBuffer=new StringBuffer();
+        int topBorder=100000;
+        int summ;
+        for(int i=1;i<=topBorder;i++){
+            summ=0;
+            if(i%2!=0){ //нечетных совершенных чисель пока не обнаружено
+                continue;
+            }
+            for(int j=1;j<=i/2;j++){
+                if(summ>i) break;
+                if(i%j==0){
+                    summ+=j;
+                }
+            }
+            if (i==summ){
+                stringBuffer.append(i).append(" ");
+            }
+        }
+        System.out.println(stringBuffer);
     }
 
+    /**
+     *
+     * @param number -число
+     * @param times -сколько раз его напечатать
+     */
     private void printNumberOfTimes(int number, int times) {
         StringBuffer stringBuffer = new StringBuffer();
         for (int i = 0; i < times - 1; i++) {
@@ -404,5 +420,17 @@ public class CycleOperation {
             arrayOfDouble[i] = Math.random() * (max - min) + min;
         }
         return arrayOfDouble;
+    }
+
+    /**
+     *
+     * @param ratio -текущий курс
+     * @param topBorder -верхняя граница
+     * @param strFormat -форматированная строка
+     */
+    private void printTableRation(float ratio,int topBorder,String strFormat){
+        for (int i = 1; i <= topBorder; i++) {
+            System.out.printf(i + strFormat, i * ratio);
+        }
     }
 }

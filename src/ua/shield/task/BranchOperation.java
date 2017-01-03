@@ -9,16 +9,16 @@ import java.util.*;
  */
 @DefAnnotation(desc ="Ветвления")
 public class BranchOperation {
-   private  Scanner snanner=new Scanner(System.in);
+   private  Scanner scanner =new Scanner(System.in);
+
     @DefAnnotation(desc = "Ввести с клавиатуры число в диапазоне от 100 до 100000000 (введенное\n" +
             "число проверяется). Подсчитать количество четных и нечетных цифр в\n" +
             "этом числе в процентном отношении.")
-
     public void taskOne() {
         System.out.println("Введите число от 100 до 100000000");
         int even=0;
         int uneven=0;
-        long number=snanner.nextLong();
+        long number= scanner.nextLong();
         if(number<100||number>100000000){
             System.out.println("Число не входит в требуемый диапазон");
         }else {
@@ -43,7 +43,7 @@ public class BranchOperation {
             "проверить является ли данный билет счастливым.")
     public void taskTwo(){
         System.out.println("Введите номер трамвайного билета (6-значное число):");
-        int number=snanner.nextInt();
+        int number= scanner.nextInt();
         if(number/1000000==0&&number/100000>1){
             try {
                 int[]arr=numberToArrayFromDigit(number);
@@ -66,7 +66,7 @@ public class BranchOperation {
             "вычислить разницу в днях между этими датами.")
     public void taskThree() {
         System.out.println("Введите дату свого рождения(dd.mm.yyyy)");
-        String str=snanner.nextLine();
+        String str= scanner.nextLine();
         String[] dateOfBirthday=str.split("\\.");
         Calendar calendar=Calendar.getInstance();
         long currentTimeInMillis=calendar.getTimeInMillis();
@@ -76,18 +76,52 @@ public class BranchOperation {
         System.out.println((currentTimeInMillis-birthdayTimeInMillis)/1000/60/60/24);
     }
 
-    @DefAnnotation(desc = "")
+    @DefAnnotation(desc = "Расчитать значение y:при x>0 y=sin^2(x), иначе y=1-2sin(x^2)")
     public void taskFour() {
-
+        System.out.println("Введите x:");
+        double x = scanner.nextDouble();
+        double y;
+        if(x>0){
+            y=Math.pow(Math.sin(x),2);
+        }else{
+            y=1-2*Math.sin(Math.pow(x,2));
+        }
+        System.out.printf("x=%f,y=%f\n",x,y);
     }
 
-    @DefAnnotation(desc = "")
+    @DefAnnotation(desc = "Расчитать значение y:при x>0 y=sin(x^2), иначе y=1+2sin^2(x)")
     public void taskFive() {
-
+        System.out.println("Введите x:");
+        double x = scanner.nextDouble();
+        double y;
+        if(x>0){
+            y=Math.sin(Math.pow(x,2));
+        }else{
+            y=1+2*Math.pow(Math.sin(x),2);
+        }
+        System.out.printf("x=%f,y=%f\n",x,y);
     }
 
-    @DefAnnotation(desc = "")
+    @DefAnnotation(desc = "Определите, в какую из областей(1 или 2) попадает точка" +
+            " с заданными координатами ")
     public void taskSix() {
+        double x;
+        double y;
+        final int  lineX=4;
+
+        System.out.println("Введите координату x:");
+        x = scanner.nextDouble();
+        System.out.println("Введите координату y:");
+        y = scanner.nextDouble();
+        if(x<lineX){
+            System.out.printf("Точка с координатами:(%.2f;%.2f) попадает в 1-ю область\n",x,y);
+
+        }else if(x>lineX){
+            System.out.printf("Точка с координатами:(%.2f;%.2f) попадает во 2-ю область\n",x,y);
+
+        }else{
+            System.out.printf("Точка с координатами:(%.2f;%.2f) лежит на прямой (%d,y)\n",x,y,lineX);
+        }
 
     }
 
@@ -95,7 +129,7 @@ public class BranchOperation {
             "интервалу (–5, 3).")
     public void taskSeven() {
         System.out.println("Введите число:");
-        double value = snanner.nextDouble();
+        double value = scanner.nextDouble();
         if(value>-5&&value<3){
             System.out.println("Число принадлежит интервалу:(–5, 3)");
         }else{
@@ -112,9 +146,9 @@ public class BranchOperation {
         double max;
         System.out.println("Введите два различных вещественных числа. ");
         System.out.println("Введите 1-е число:");
-        double numOne = snanner.nextDouble();
+        double numOne = scanner.nextDouble();
         System.out.println("Введите 2-е число:");
-        double numTwo = snanner.nextDouble();
+        double numTwo = scanner.nextDouble();
         System.out.println("Используем 2 неполных оператора");
         min=max=numOne;
         if(numOne>numTwo){
@@ -146,11 +180,11 @@ public class BranchOperation {
         double max;
         System.out.println("Введите три различных вещественных числа. ");
         System.out.println("Введите 1-е число:");
-        double numOne = snanner.nextDouble();
+        double numOne = scanner.nextDouble();
         System.out.println("Введите 2-е число:");
-        double numTwo = snanner.nextDouble();
+        double numTwo = scanner.nextDouble();
         System.out.println("Введите 3-е число:");
-        double numThree = snanner.nextDouble();
+        double numThree = scanner.nextDouble();
         min=max=numOne;
         if(numTwo>numOne){
             max=numTwo;
@@ -167,23 +201,21 @@ public class BranchOperation {
         System.out.println("Min:"+min+" Max: "+max);
     }
 
-    @DefAnnotation(desc = "")
-    public void taskTen() {
-
-    }
-
+    /**
+     *
+     * @param number -число
+     * @return -массив цифр, из которого число состоит
+     * @throws NumberOverRangeExeption
+     */
     private int[] numberToArrayFromDigit(final long number) throws NumberOverRangeExeption {
         long num=number;
         int i=0;
-
         int[] arrayFromDigit=new int[9];
         if(number>999999999){
             throw new NumberOverRangeExeption();
         }
-
         while(num>10){
-
-            arrayFromDigit[i]= (int) (num%10);
+           arrayFromDigit[i]= (int) (num%10);
             num=num/10;
             i++;
         }

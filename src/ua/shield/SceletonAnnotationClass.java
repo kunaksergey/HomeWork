@@ -29,4 +29,5 @@ public class SceletonAnnotationClass {
     public void addMethod(Method method){
         methodList.add(method);
     }
+
 }

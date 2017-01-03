@@ -16,7 +16,13 @@ import java.util.List;
  */
 public class PackageScanner {
 
-    public static List<Class> getAnnotationClassesForPackage(String packageName, Class annotationClass ) {
+    /**
+     *
+     * @param packageName -имя пакета с заданиями
+     * @param annotationClass
+     * @return
+     */
+    public static List<Class> getAnnotationClassesForPackage(String packageName, Class<?extends Annotation> annotationClass ) {
         ArrayList<Class> classes = new ArrayList<>();
         String relPath = packageName.replace('.', '/');
         URL resource = ClassLoader.getSystemClassLoader().getResource(relPath);
@@ -43,7 +49,7 @@ public class PackageScanner {
         return classes;
     }
 
-    public static List<Method> getAnnotationMethodsForClass(Class<?> aClass, Class<?> annotationClass) {
+    public static List<Method> getAnnotationMethodsForClass(Class<?> aClass, Class<? extends Annotation> annotationClass) {
         ArrayList<Method> methods = new ArrayList<>();
         for (Method method : aClass.getMethods()) {
             if (checkElementForAnnotation(method, annotationClass)) {
@@ -53,29 +59,7 @@ public class PackageScanner {
         return methods;
     }
 
-  /*  public static String getDescForClass(Class<?> aClass) throws AnnotationIsNotSupport{
-        DefAnnotation defAnnotation =  aClass.getDeclaredAnnotation(DefAnnotation.class);
-
-        if(defAnnotation!=null){
-            return defAnnotation.desc();
-        }else{
-            throw new AnnotationIsNotSupport("Аннотация не поддерживается");
-        }
-
-    }
-    public static String getDescForMethod(Method method) throws AnnotationIsNotSupport{
-        DefAnnotation defAnnotation = method.getDeclaredAnnotation(DefAnnotation.class);
-
-        if(defAnnotation!=null){
-            return defAnnotation.desc();
-        }else{
-            throw new AnnotationIsNotSupport("Аннотация не поддерживается");
-        }
-
-    }
-    */
-
-    private static boolean checkElementForAnnotation(AnnotatedElement element, Class<?> annotationClass) {
+    private static boolean checkElementForAnnotation(AnnotatedElement element, Class<? extends Annotation> annotationClass) {
         Annotation[] declaredAnnotations = element.getDeclaredAnnotations();
         for (Annotation a : declaredAnnotations) {
             if (a.annotationType().equals(annotationClass)) {
@@ -85,25 +69,6 @@ public class PackageScanner {
         return false;
     }
 
-   /* private static boolean checkClassForAnnotation(Class<?> aClass, Class<?> annotationClass) {
-        Annotation[] declaredAnnotations = aClass.getDeclaredAnnotations();
-        for (Annotation a : declaredAnnotations) {
-            if (a.annotationType().equals(annotationClass)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    private static boolean checkMethodForAnnotation(Method method, Class<?> annotationClass) {
-        Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
-        for (Annotation a : declaredAnnotations) {
-            if (a.annotationType().equals(annotationClass)) {
-                return true;
-            }
-        }
-        return false;
-    }
-*/
 
 }
